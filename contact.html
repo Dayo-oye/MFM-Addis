@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | MFM Addis-Ababa</title>
+    <meta name="description" content="Get in touch with MFM Addis-Ababa. Location, phone, email and feedback form.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/logo.ico">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .hero {
+            min-height: 50vh;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader">
+            <img src="assets/images/logo.jpeg" alt="MFM Logo" class="loader-logo">
+            <div class="loader-ring"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.jpeg" alt="MFM Addis-Ababa Logo" class="logo-img">
+                    <div class="logo-text">
+                        <h4>MFM Addis-Ababa</h4>
+                        <small>Grace & Mercy Assembly</small>
+                    </div>
+                </a>
+
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="index.html" class="nav-link" target="_blank">Home</a></li>
+                        <li><a href="about.html" class="nav-link" target="_blank">About</a></li>
+                        <li><a href="services.html" class="nav-link" target="_blank">Services</a></li>
+                        <li><a href="programs.html" class="nav-link" target="_blank">Programs</a></li>
+                        <li><a href="giving.html" class="nav-link" target="_blank">Giving</a></li>
+                        <li><a href="gallery.html" class="nav-link" target="_blank">Gallery</a></li>
+                        <li><a href="contact.html" class="nav-link active" target="_blank">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <button class="menu-toggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="hero" style="min-height: 50vh; padding-top: 100px;">
+        <div class="container">
+            <div class="hero-text" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h1>Contact <span class="highlight">Us</span></h1>
+                <p>We'd love to hear from you. Visit us or send a message.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-info" data-aos="fade-right">
+                    <span class="section-label">Get in Touch</span>
+                    <h2 class="section-title">Visit Us Today</h2>
+
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h5>Location</h5>
+                            <p> <a href="https://maps.app.goo.gl/q8BUXqs9FX58D1ZQ9" target="_blank">B-16, Lemi Kura Sub City, Woreda Block 09, By Oilibya Gas Station, Goro Summit,
+                                Addis-Ababa.</a> </p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h5>Phone</h5>
+                            <p><a href="tel:+251977078677">+251 977 078 677</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h5>Email</h5>
+                            <p><a href="mailto:mfmaddisababa1@gmail.com">mfmaddisababa1@gmail.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126107.41165682!2d38.7447!3d9.0084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b85cef5ab402d%3A0x8467b6b037a24d49!2sAddis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2sus!4v1689000000000!5m2!1sen!2sus"
+                            loading="lazy" title="MFM Addis-Ababa Location Map">
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="contact-form-section" data-aos="fade-left">
+                    <h3>Send us a Feedback</h3>
+                    <p>Have a question, testimony, or prayer request? Fill out the form below.</p>
+
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your full name"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter your email address"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Message Type</label>
+                            <select id="subject" class="form-control" required>
+                                <option value="" disabled selected>Select message type</option>
+                                <option value="Inquiry">General Inquiry</option>
+                                <option value="Prayer Request">Prayer Request</option>
+                                <option value="Testimony">Share Testimony</option>
+                                <option value="Counseling">Counseling</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea id="message" class="form-control" placeholder="Write your message here..."
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-submit">
+                            Send Message <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h4><img src="assets/images/logo.jpeg" alt="MFM Logo"> MFM Addis</h4>
+                    <p>Grace & Mercy Assembly<br>Mountain of Fire and Miracles Ministries</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="giving.html">Giving</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+                <div class="footer-col">
+                    <h5>Resources</h5>
+                    <ul>
+                        <li><a href="#">Sermons</a></li>
+                        <li><a href="#">Prayer Points</a></li>
+                        <li><a href="#">Manna Water</a></li>
+                        <li><a href="giving.html">Giving</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MFM Addis-Ababa (Grace & Mercy Assembly). All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

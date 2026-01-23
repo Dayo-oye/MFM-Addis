@@ -1,226 +1,248 @@
-// Wait for DOM to load
-document.addEventListener('DOMContentLoaded', function() {
-  
-  // Preloader
+// Initialize AOS
+AOS.init({
+  duration: 800,
+  once: true,
+  offset: 100,
+  easing: 'ease-in-out'
+});
+
+// Preloader
+window.addEventListener('load', () => {
   const preloader = document.querySelector('.preloader');
   setTimeout(() => {
-    preloader.classList.add('fade-out');
-    setTimeout(() => {
-      preloader.style.display = 'none';
-    }, 500);
-  }, 1000);
-  
-  // Mobile Menu Toggle
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navMenu = document.querySelector('.nav-menu');
-  
+    if (preloader) {
+      preloader.style.opacity = '0';
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 500);
+    }
+  }, 800);
+});
+
+// Header Scroll Effect
+const header = document.querySelector('.header');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+
+  if (currentScroll > 100) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+
+  lastScroll = currentScroll;
+});
+
+// Mobile Menu Toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navMenu = document.querySelector('.nav-menu');
+const navLinks = document.querySelectorAll('.nav-link');
+
+if (menuToggle) {
   menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('active');
     navMenu.classList.toggle('active');
-  });
-  
-  // Close menu when clicking a link
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      menuToggle.classList.remove('active');
-      navMenu.classList.remove('active');
-    });
-  });
-  
-  // Prayer Request Modal
-  const prayerBtn = document.querySelector('.btn-prayer');
-  const prayerModal = document.getElementById('prayerModal');
-  const modalClose = document.querySelector('.modal-close');
-  
-  if (prayerBtn) {
-    prayerBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      prayerModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  }
-  
-  if (modalClose) {
-    modalClose.addEventListener('click', () => {
-      prayerModal.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-  }
-  
-  // Close modal when clicking outside
-  prayerModal.addEventListener('click', (e) => {
-    if (e.target === prayerModal) {
-      prayerModal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  });
-  
-  // Prayer form submission
-  const prayerForm = document.getElementById('prayerForm');
-  if (prayerForm) {
-    prayerForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      // In a real application, you would send this data to a server
-      alert('Prayer request submitted! We will pray for you.');
-      prayerModal.classList.remove('active');
-      document.body.style.overflow = '';
-      prayerForm.reset();
-    });
-  }
-  
-  // Back to Top Button
-  const backToTop = document.querySelector('.back-to-top');
-  
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-      backToTop.classList.add('visible');
+    const icon = menuToggle.querySelector('i');
+
+    if (navMenu.classList.contains('active')) {
+      icon.classList.replace('fa-bars', 'fa-times');
     } else {
-      backToTop.classList.remove('visible');
+      icon.classList.replace('fa-times', 'fa-bars');
     }
   });
-  
-  backToTop.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
-  
-  // Animate numbers counting up
-  function animateCounters() {
-    const counters = document.querySelectorAll('.stat-number');
-    
-    counters.forEach(counter => {
-      const target = +counter.getAttribute('data-count');
-      const count = +counter.innerText;
-      const increment = target / 100;
-      
-      if (count < target) {
-        counter.innerText = Math.ceil(count + increment);
-        setTimeout(() => animateCounters(), 20);
-      } else {
-        counter.innerText = target;
-      }
-    });
-  }
-  
-  // Initialize counters when in viewport
-  const aboutSection = document.querySelector('.about-section');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounters();
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-  
-  if (aboutSection) {
-    observer.observe(aboutSection);
-  }
-  
-  // Simple AOS (Animate On Scroll) implementation
-  function checkScroll() {
-    const elements = document.querySelectorAll('[data-aos]');
-    
-    elements.forEach(element => {
-      const elementTop = element.getBoundingClientRect().top;
-      const windowHeight = window.innerHeight;
-      
-      if (elementTop < windowHeight * 0.85) {
-        element.classList.add('aos-animate');
-      }
-    });
-  }
-  
-  // Initial check
-  checkScroll();
-  
-  // Check on scroll
-  window.addEventListener('scroll', checkScroll);
-  
-  // Current year for footer (optional)
-  const yearSpan = document.getElementById('currentYear');
-  if (yearSpan) {
-    yearSpan.textContent = new Date().getFullYear();
-  }
-  
-  // Active navigation link based on scroll position
-  const sections = document.querySelectorAll('section[id]');
-  
-  function updateActiveNav() {
-    const scrollY = window.pageYOffset;
-    
-    sections.forEach(section => {
-      const sectionHeight = section.offsetHeight;
-      const sectionTop = section.offsetTop - 100;
-      const sectionId = section.getAttribute('id');
-      const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-      
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        navLink?.classList.add('active');
-      } else {
-        navLink?.classList.remove('active');
-      }
-    });
-  }
-  
-  window.addEventListener('scroll', updateActiveNav);
-  
-  // Initialize events slider (simplified)
-  function initializeEvents() {
-    const events = [
-      { title: "Sunday Worship", date: "Every Sunday", time: "9:00 AM", icon: "fas fa-church" },
-      { title: "Champions Prayer", date: "Every Tuesday", time: "9:00 PM", icon: "fas fa-hands-praying" },
-      { title: "Manna Water Service", date: "Every Wednesday", time: "6:30 PM", icon: "fas fa-tint" },
-      { title: "Night of Solution", date: "2nd Friday Monthly", time: "11:00 PM", icon: "fas fa-moon" }
-    ];
-    
-    const eventsSlider = document.querySelector('.events-slider');
-    
-    if (eventsSlider) {
-      events.forEach(event => {
-        const eventCard = document.createElement('div');
-        eventCard.className = 'service-card';
-        eventCard.setAttribute('data-aos', 'fade-up');
-        eventCard.innerHTML = `
-          <div class="service-icon">
-            <i class="${event.icon}"></i>
-          </div>
-          <div class="service-content">
-            <h3 class="service-title">${event.title}</h3>
-            <div class="service-time">
-              <i class="fas fa-calendar"></i>
-              <span>${event.date}</span>
-            </div>
-            <div class="service-time">
-              <i class="fas fa-clock"></i>
-              <span>${event.time} EAT</span>
-            </div>
-          </div>
-        `;
-        eventsSlider.appendChild(eventCard);
-      });
+}
+
+// Close menu on link click
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    if (navMenu.classList.contains('active')) {
+      navMenu.classList.remove('active');
+      menuToggle.querySelector('i').classList.replace('fa-times', 'fa-bars');
     }
-  }
-  
-  initializeEvents();
-  
-  // Add smooth scrolling for all anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-      
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 80,
-          behavior: 'smooth'
-        });
-      }
-    });
   });
 });
+
+// Counter Animation
+const animateCounter = (element) => {
+  const target = parseInt(element.getAttribute('data-target'));
+  const duration = 2000;
+  const increment = target / (duration / 16);
+  let current = 0;
+
+  const updateCounter = () => {
+    current += increment;
+    if (current < target) {
+      element.textContent = Math.floor(current);
+      requestAnimationFrame(updateCounter);
+    } else {
+      element.textContent = target + '+';
+    }
+  };
+
+  updateCounter();
+};
+
+// Intersection Observer for Counter Animation
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const counters = entry.target.querySelectorAll('.stat-count');
+      counters.forEach(counter => {
+        if (counter.textContent === '0') {
+          animateCounter(counter);
+        }
+      });
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+const aboutSection = document.querySelector('#about');
+if (aboutSection) {
+  counterObserver.observe(aboutSection);
+}
+
+// Form Submission
+const contactForm = document.getElementById('contactForm');
+
+if (contactForm) {
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      type: document.getElementById('subject') ? document.getElementById('subject').value : 'Inquiry',
+      message: document.getElementById('message').value
+    };
+
+    let responseMessage = '';
+
+    switch (formData.type) {
+      case 'Testimony':
+        responseMessage = `Praise God! Thank you ${formData.name} for sharing your testimony. We rejoice with you!`;
+        break;
+      case 'Prayer Request':
+        responseMessage = `Dear ${formData.name}, your prayer request has been received. Our ministers will intercede for you.`;
+        break;
+      default:
+        responseMessage = `Thank you ${formData.name} for contacting us. We will get back to you shortly.`;
+    }
+
+    alert(responseMessage);
+    contactForm.reset();
+  });
+}
+
+// Current Year in Footer
+const yearSpan = document.getElementById('currentYear');
+if (yearSpan) {
+  yearSpan.textContent = new Date().getFullYear();
+}
+
+// Slider Navigation Logic (Generic for multiple sliders)
+const sliderBtns = document.querySelectorAll('.slider-btn');
+
+if (sliderBtns.length > 0) {
+  const scrollAmount = 380; // approx card width + gap
+
+  sliderBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sliderId = btn.getAttribute('data-slider');
+      const slider = document.getElementById(sliderId || 'servicesSlider');
+      if (!slider) return;
+
+      const isNext = btn.classList.contains('next');
+
+      if (isNext) {
+        const isAtEnd = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10;
+        if (isAtEnd) {
+          slider.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+      } else {
+        const isAtStart = slider.scrollLeft <= 10;
+        if (isAtStart) {
+          slider.scrollTo({ left: slider.scrollWidth, behavior: 'smooth' });
+        } else {
+          slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+}
+
+// ========== GALLERY LIGHTBOX LOGIC ==========
+const galleryModal = document.getElementById('galleryModal');
+const modalImage = document.getElementById('modalImage');
+const closeModal = document.querySelector('.close-modal');
+const modalPrev = document.getElementById('modalPrev');
+const modalNext = document.getElementById('modalNext');
+const galleryImages = document.querySelectorAll('.gallery-img');
+
+let currentCategoryImages = [];
+let currentIndex = 0;
+
+if (galleryModal && modalImage && galleryImages.length > 0) {
+  galleryImages.forEach(img => {
+    img.addEventListener('click', () => {
+      const category = img.getAttribute('data-category');
+      const imgSrc = img.getAttribute('src');
+
+      // Find all images within the same category for navigation
+      currentCategoryImages = Array.from(galleryImages).filter(item =>
+        item.getAttribute('data-category') === category
+      );
+
+      currentIndex = currentCategoryImages.findIndex(item => item.getAttribute('src') === imgSrc);
+
+      openModal(imgSrc);
+    });
+  });
+
+  const openModal = (src) => {
+    modalImage.src = src;
+    galleryModal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scroll
+  };
+
+  const closeGalleryModal = () => {
+    galleryModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  };
+
+  const navigateModal = (direction) => {
+    if (currentCategoryImages.length === 0) return;
+
+    currentIndex = (currentIndex + direction + currentCategoryImages.length) % currentCategoryImages.length;
+
+    modalImage.style.transform = 'scale(0.95)';
+    modalImage.style.opacity = '0';
+
+    setTimeout(() => {
+      modalImage.src = currentCategoryImages[currentIndex].getAttribute('src');
+      modalImage.style.transform = 'scale(1)';
+      modalImage.style.opacity = '1';
+    }, 200);
+  };
+
+  if (closeModal) closeModal.addEventListener('click', closeGalleryModal);
+  if (modalPrev) modalPrev.addEventListener('click', () => navigateModal(-1));
+  if (modalNext) modalNext.addEventListener('click', () => navigateModal(1));
+
+  // Close on backdrop click
+  galleryModal.addEventListener('click', (e) => {
+    if (e.target === galleryModal) closeGalleryModal();
+  });
+
+  // Keyboard Navigation
+  document.addEventListener('keydown', (e) => {
+    if (!galleryModal.classList.contains('active')) return;
+
+    if (e.key === 'Escape') closeGalleryModal();
+    if (e.key === 'ArrowLeft') navigateModal(-1);
+    if (e.key === 'ArrowRight') navigateModal(1);
+  });
+}
