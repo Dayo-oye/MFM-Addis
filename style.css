@@ -1481,9 +1481,24 @@ textarea.form-control {
     justify-content: center;
   }
 
-  .contact-info,
+  /* Optimize contact section for mobile */
+  .contact-wrapper {
+    gap: 30px;
+    padding: 20px;
+  }
+
+  .contact-info {
+    padding: 30px 20px;
+  }
+
   .contact-form-section {
-    padding: 40px;
+    width: 100%;
+    margin: 0;
+  }
+
+  .map-container {
+    margin-top: 20px;
+    height: 250px;
   }
 }
 
