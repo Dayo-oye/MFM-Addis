@@ -1035,6 +1035,77 @@ p {
   margin-bottom: 0;
 }
 
+/* ========== SPIRITUAL NOURISHMENT (BULLETIN) ========== */
+.bulletin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.bulletin-card {
+  background: var(--bg-white);
+  padding: 32px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.bulletin-category {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.bulletin-card h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+.bulletin-card p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.938rem;
+  color: var(--text-body);
+  margin-bottom: 24px;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.bulletin-card .read-more {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+  margin-top: auto;
+}
+
+.bulletin-card .read-more:hover {
+  color: var(--accent);
+  gap: 12px;
+}
+
+.bulletin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: transparent;
+}
+
+.bulletin-btn-wrapper {
+  text-align: center;
+  margin-top: 50px;
+}
+
 /* ========== CONTACT ========== */
 .contact-wrapper {
   display: grid;
@@ -1481,6 +1552,11 @@ textarea.form-control {
 
   .hero-buttons {
     flex-direction: column;
+  }
+
+  .bulletin-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .btn {

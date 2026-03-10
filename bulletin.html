@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Bulletin | MFM Addis-Ababa</title>
+    <meta name="description" content="Spiritual nourishment, sermons, and faith teachings from MFM Addis-Ababa, Goshen & Mercy Assembly.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/logo.ico">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Subpage Hero Override */
+        .hero {
+            min-height: 40vh;
+            align-items: center;
+        }
+
+        .bulletin-masonry {
+            column-count: 2;
+            column-gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .bulletin-post {
+            break-inside: avoid;
+            margin-bottom: 30px;
+            padding: 40px;
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            scroll-margin-top: 120px; /* Offset for fixed header when anchoring */
+            transition: all 0.5s ease;
+            width: 100%;
+            box-sizing: border-box;
+            display: inline-block; /* Helps with masonry preventing element splitting */
+        }
+
+        /* Card Variations */
+        .bulletin-post.featured {
+            column-span: all;
+            background: #fdfbf7;
+            border: 1px solid #eaddc4;
+            margin-bottom: 40px; /* extra space below featured */
+        }
+
+        .bulletin-post.encouragement {
+            border-left: 4px solid var(--accent);
+        }
+
+        .bulletin-post.faith {
+            border-top: 4px solid var(--primary);
+        }
+
+        .post-category {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            background: rgba(218, 165, 32, 0.1);
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .bulletin-post h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .bulletin-post .post-meta {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .bulletin-post .post-body p {
+            font-size: 1.05rem;
+            line-height: 1.9; /* Increased line-height for readability */
+            margin-bottom: 20px;
+            color: var(--text-body);
+        }
+
+        /* Pull-quote style */
+        .bulletin-post .post-body blockquote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.35rem;
+            color: var(--primary);
+            padding: 25px 30px 25px 40px;
+            border-left: 5px solid var(--accent);
+            background: rgba(218, 165, 32, 0.05);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin: 35px 0;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .bulletin-post .post-body blockquote::before {
+            content: '\201C';
+            position: absolute;
+            top: 10px;
+            left: -5px;
+            font-size: 4rem;
+            color: rgba(218, 165, 32, 0.2);
+            line-height: 1;
+            font-family: "Georgia", serif;
+        }
+
+        /* Target Highlight Effect */
+        .bulletin-post.highlight-post {
+            border-color: var(--primary);
+            box-shadow: 0 12px 40px rgba(139, 0, 0, 0.15); /* Primary color shadow */
+            transform: scale(1.02);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Interactive Action Bar */
+        .post-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .action-btn:hover {
+            color: var(--accent);
+            background: rgba(218, 165, 32, 0.05);
+        }
+
+        .action-btn i {
+            font-size: 1.1rem;
+        }
+
+        .share-wrapper {
+            position: relative;
+        }
+
+        .share-menu {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: var(--bg-white);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: var(--radius-md);
+            padding: 10px;
+            display: flex;
+            gap: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 20;
+            margin-bottom: 10px;
+        }
+
+        .share-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .share-icon {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.03);
+            text-decoration: none;
+        }
+
+        .share-icon:hover {
+            color: var(--primary);
+            background: rgba(218, 165, 32, 0.1);
+        }
+
+        .share-icon.share-wa:hover { color: #25D366; background: rgba(37, 211, 102, 0.1); }
+        .share-icon.share-fb:hover { color: #1877F2; background: rgba(24, 119, 242, 0.1); }
+        .share-icon.share-x:hover { color: #000000; background: rgba(0, 0, 0, 0.1); }
+
+        .back-btn-wrapper {
+            margin-bottom: 40px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 15px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            color: var(--primary);
+            gap: 12px;
+        }
+
+        /* Single Post View Mechanics */
+        .post-full-content {
+            display: none;
+        }
+
+        .active-post .post-full-content {
+            display: block;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .active-post .post-teaser {
+            display: none;
+        }
+
+        .read-more-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0;
+            margin-top: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+        }
+
+        .read-more-btn:hover {
+            color: var(--accent);
+            gap: 12px;
+        }
+
+        .single-view {
+            column-count: 1 !important;
+            max-width: 800px;
+        }
+
+        .single-view .bulletin-post {
+            margin-bottom: 0;
+            border-color: var(--primary);
+        }
+
+        body.single-active .back-home {
+            display: none !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .bulletin-masonry {
+                column-count: 1;
+            }
+            .bulletin-post.featured {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader">
+            <img src="assets/images/logo.jpeg" alt="MFM Logo" class="loader-logo">
+            <div class="loader-ring"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.jpeg" alt="MFM Addis-Ababa Logo" class="logo-img">
+                    <div class="logo-text">
+                        <h4>MFM Addis-Ababa</h4>
+                        <small>Goshen & Mercy Assembly</small>
+                    </div>
+                </a>
+
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="about.html" class="nav-link">About</a></li>
+                        <li><a href="services.html" class="nav-link">Services</a></li>
+                        <li><a href="programs.html" class="nav-link">Programs</a></li>
+                        <li><a href="giving.html" class="nav-link">Giving</a></li>
+                        <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <button class="menu-toggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="hero" style="padding-top: 100px;">
+        <div class="container">
+            <div class="hero-text" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h1>The <span class="highlight">Bulletin</span></h1>
+                <p>Spiritual Nourishment, Sermons & Faith Teachings.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bulletin Content -->
+    <section class="section">
+        <div class="back-btn-wrapper" data-aos="fade-right">
+            <a href="index.html" class="back-btn back-home">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+            <button id="back-to-all-btn" class="back-btn" style="display: none; background: none; border: none; font-size: 1rem; cursor: pointer; font-family: 'Inter', sans-serif;">
+                <i class="fas fa-arrow-left"></i> Back to All Messages
+            </button>
+            <a href="index.html" id="return-to-home-btn" class="back-btn" style="display: none;">
+                <i class="fas fa-arrow-left"></i> Return to Home
+            </a>
+        </div>
+
+        <div class="container bulletin-masonry">
+
+            <!-- Message 1 (Featured) -->
+            <article id="persistent-prayer" class="bulletin-post featured" data-aos="fade-up">
+                <span class="post-category">SERMON (Featured)</span>
+                <h2>The Power of Persistent Prayer</h2>
+                <div class="post-meta">
+                    <span><i class="far fa-calendar-alt"></i> March 10, 2026</span>
+                    <span><i class="far fa-user"></i> PASTOR</span>
+                </div>
+                <div class="post-body">
+                    <div class="post-teaser">
+                        <p>Discover how unwavering faith and relentless prayer can shift atmospheres and birth your long-awaited miracles in this powerful exhortation.</p>
+                        <button class="read-more-btn">Read Full Message <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="post-full-content">
+                        <p>In Luke 18, Jesus tells us the parable of the persistent widow to show us that we should always pray and not give up. The widow kept going to the unjust judge, pleading her case, until he finally granted her justice just to get her to stop bothering him.</p>
+                        <blockquote>And will not God bring about justice for his chosen ones, who cry out to him day and night? Will he keep putting them off? I tell you, he will see that they get justice, and quickly.<br><br><span style="font-size:1rem;color:var(--text-light);font-family:'Inter', sans-serif;">- Luke 18:7-8</span></blockquote>
+                        <p>How much more will our loving Father, who is just and righteous, answer the cries of His children? Persistent prayer is not about begging God for something He doesn't want to give you. It is about aligning your heart with His will and refusing to let go until the breakthrough manifests in the natural realm. When you pray with persistence, you are demonstrating your absolute reliance on God and your immovable faith in His promises. Keep pushing, keep knocking, and keep asking!</p>
+                        
+                        <div class="post-actions">
+                            <button class="action-btn like-btn"><i class="far fa-heart"></i> <span>Like</span></button>
+                            <div class="share-wrapper">
+                                <button class="action-btn share-btn"><i class="far fa-share-square"></i> Share</button>
+                                <div class="share-menu">
+                                    <a href="#" class="share-icon share-wa" target="_blank" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                                    <a href="#" class="share-icon share-fb" target="_blank" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" class="share-icon share-x" target="_blank" aria-label="Share on X"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Message 2 -->
+            <article id="strength-valley" class="bulletin-post encouragement" data-aos="fade-up" data-aos-delay="100">
+                <span class="post-category">ENCOURAGEMENT</span>
+                <h2>Strength in the Valley</h2>
+                <div class="post-meta">
+                    <span><i class="far fa-calendar-alt"></i> March 3, 2026</span>
+                    <span><i class="far fa-user"></i> MINISTER</span>
+                </div>
+                <div class="post-body">
+                    <div class="post-teaser">
+                        <p>Even when you walk through the shadowed valleys, remember that the Shepherd is right beside you. A brief word to lift your spirit today.</p>
+                        <button class="read-more-btn">Read Full Message <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="post-full-content">
+                        <p>The mountaintop experiences are glorious. They are the times of evident victory, clear vision, and abundant joy. However, it is in the valleys that our faith is genuinely tested and our dependence on God is forged. Psalm 23 reminds us, "Even though I walk through the darkest valley, I will fear no evil, for you are with me."</p>
+                        <p>Notice the psalmist says "through" the valley. The valley is not your final destination; it is merely a passage. While you are in it, you are never alone. His rod and His staff—His protection and His guidance—are actively at work on your behalf. If you find yourself in a valley season today, do not lose heart. Draw near to the Shepherd. Let His presence be your comfort and His word be your strength. You will emerge on the other side stronger and more radiant than before.</p>
+
+                        <div class="post-actions">
+                            <button class="action-btn like-btn"><i class="far fa-heart"></i> <span>Like</span></button>
+                            <div class="share-wrapper">
+                                <button class="action-btn share-btn"><i class="far fa-share-square"></i> Share</button>
+                                <div class="share-menu">
+                                    <a href="#" class="share-icon share-wa" target="_blank" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                                    <a href="#" class="share-icon share-fb" target="_blank" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" class="share-icon share-x" target="_blank" aria-label="Share on X"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Message 3 -->
+            <article id="walking-water" class="bulletin-post faith" data-aos="fade-up" data-aos-delay="200">
+                <span class="post-category">FAITH</span>
+                <h2>Walking on Water</h2>
+                <div class="post-meta">
+                    <span><i class="far fa-calendar-alt"></i> February 24, 2026</span>
+                    <span><i class="far fa-user"></i> PASTOR</span>
+                </div>
+                <div class="post-body">
+                    <div class="post-teaser">
+                        <p>Stepping out of the boat requires bold faith. Learn to keep your eyes fixed on Jesus rather than the stormy waves surrounding you.</p>
+                        <button class="read-more-btn">Read Full Message <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="post-full-content">
+                        <p>When Peter saw Jesus walking on the water, his immediate reaction was a desire to join Him. "Lord, if it's you," Peter replied, "tell me to come to you on the water." (Matthew 14:28). Jesus simply said, "Come." For a brief, miraculous moment, Peter experienced the impossible: he walked on the water toward his Savior.</p>
+                        <blockquote>But when he saw the wind, he was afraid and, beginning to sink, cried out, 'Lord, save me!'<br><br><span style="font-size:1rem;color:var(--text-light);font-family:'Inter', sans-serif;">- Matthew 14:30</span></blockquote>
+                        <p>Peter's miracle was sustained solely by his focus on Jesus. The moment he shifted his gaze away from the Master and onto the terrifying reality of the storm, he began to sink. We are often exactly like Peter. God calls us out of our comfort zones into miraculous territories, but the winds of doubt, fear, and practical impossibility start to howl. To continue walking in the miraculous, you must aggressively guard your focus. Lock your eyes on Jesus, the author and finisher of your faith, and ignore the surrounding storms.</p>
+                        
+                        <div class="post-actions">
+                            <button class="action-btn like-btn"><i class="far fa-heart"></i> <span>Like</span></button>
+                            <div class="share-wrapper">
+                                <button class="action-btn share-btn"><i class="far fa-share-square"></i> Share</button>
+                                <div class="share-menu">
+                                    <a href="#" class="share-icon share-wa" target="_blank" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                                    <a href="#" class="share-icon share-fb" target="_blank" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" class="share-icon share-x" target="_blank" aria-label="Share on X"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h4><img src="assets/images/logo.jpeg" alt="MFM Logo"> MFM Addis</h4>
+                    <p>Goshen & Mercy Assembly<br>Mountain of Fire and Miracles Ministries</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="giving.html">Giving</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Resources</h5>
+                    <ul>
+                        <li><a href="bulletin.html">The Bulletin</a></li>
+                        <li><a href="#">Prayer Points</a></li>
+                        <li><a href="#">Manna Water</a></li>
+                        <li><a href="giving.html">Giving</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> MFM Addis-Ababa (Goshen & Mercy Assembly). All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Single Selection Script for Bulletin
+        document.addEventListener('DOMContentLoaded', () => {
+            const posts = document.querySelectorAll('.bulletin-post');
+            const backToAllBtn = document.getElementById('back-to-all-btn');
+            const returnToHomeBtn = document.getElementById('return-to-home-btn');
+            const masonryContainer = document.querySelector('.bulletin-masonry');
+            let fromHome = false;
+
+            function showSinglePost(targetId) {
+                posts.forEach(post => {
+                    if(post.id === targetId) {
+                        post.style.display = 'inline-block';
+                        post.classList.add('active-post');
+                        
+                        // Append Bottom Return Button if fromHome
+                        if (fromHome) {
+                            let bottomBtn = post.querySelector('.bottom-return-btn');
+                            if (!bottomBtn) {
+                                const btnHtml = `
+                                <div class="bottom-return-btn" style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.05); text-align: center;">
+                                    <a href="index.html" class="back-btn" style="display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--text-main); text-decoration: none; transition: var(--transition);">
+                                        <i class="fas fa-arrow-left"></i> Return to Home
+                                    </a>
+                                </div>`;
+                                post.querySelector('.post-full-content').insertAdjacentHTML('beforeend', btnHtml);
+                            } else {
+                                bottomBtn.style.display = 'block';
+                            }
+                        }
+                    } else {
+                        post.style.display = 'none';
+                    }
+                });
+                
+                if (fromHome) {
+                    backToAllBtn.style.display = 'none';
+                    returnToHomeBtn.style.display = 'inline-flex';
+                } else {
+                    backToAllBtn.style.display = 'inline-flex';
+                    if (returnToHomeBtn) returnToHomeBtn.style.display = 'none';
+                }
+
+                masonryContainer.classList.add('single-view');
+                document.body.classList.add('single-active');
+                
+                // Slight scroll offset for cleaner view
+                setTimeout(() => {
+                    window.scrollTo({ top: document.querySelector('#' + targetId).offsetTop, behavior: 'smooth' });
+                }, 100);
+            }
+
+            function showAllPosts(e) {
+                if(e) e.preventDefault();
+                posts.forEach(post => {
+                    post.style.display = 'inline-block';
+                    post.classList.remove('active-post');
+                });
+                backToAllBtn.style.display = 'none';
+                if (returnToHomeBtn) returnToHomeBtn.style.display = 'none';
+                masonryContainer.classList.remove('single-view');
+                document.body.classList.remove('single-active');
+                
+                // Remove hash cleanly
+                history.replaceState(null, null, ' '); 
+                window.scrollTo({ top: document.querySelector('.bulletin-masonry').offsetTop - 120, behavior: 'smooth' });
+            }
+
+            // Bind Read More buttons
+            document.querySelectorAll('.read-more-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const post = e.target.closest('.bulletin-post');
+                    if(post) {
+                        fromHome = false; // Internal navigation
+                        showSinglePost(post.id);
+                        window.location.hash = post.id;
+                    }
+                });
+            });
+
+            // Bind Back to All button
+            if (backToAllBtn) {
+                backToAllBtn.addEventListener('click', showAllPosts);
+            }
+
+            // Check URL Hash on load
+            const hash = window.location.hash;
+            if (hash) {
+                const targetId = hash.substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    fromHome = true;
+                    showSinglePost(targetId);
+                }
+            }
+
+            // Like Button Logic
+            document.querySelectorAll('.like-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.toggle('liked');
+                    const icon = this.querySelector('i');
+                    const text = this.querySelector('span');
+                    
+                    if (this.classList.contains('liked')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        this.style.color = 'var(--primary)';
+                        text.textContent = 'Liked';
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        this.style.color = '';
+                        text.textContent = 'Like';
+                    }
+                });
+            });
+
+            // Share Menu Logic
+            document.querySelectorAll('.share-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent document click from immediately closing it
+                    
+                    // Close any other open menus
+                    document.querySelectorAll('.share-menu.active').forEach(menu => {
+                        if (menu !== this.nextElementSibling) {
+                            menu.classList.remove('active');
+                        }
+                    });
+                    
+                    const menu = this.nextElementSibling;
+                    menu.classList.toggle('active');
+                    
+                    if (menu.classList.contains('active')) {
+                        const post = this.closest('.bulletin-post');
+                        const title = post.querySelector('h2').textContent;
+                        // Use base URL + hash for the specific post
+                        const url = window.location.origin + window.location.pathname + '#' + post.id;
+                        
+                        const encodedTitle = encodeURIComponent(title);
+                        const encodedUrl = encodeURIComponent(url);
+                        
+                        // Update specific service links dynamically
+                        menu.querySelector('.share-wa').href = `https://api.whatsapp.com/send?text=${encodedTitle} - ${encodedUrl}`;
+                        menu.querySelector('.share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+                        menu.querySelector('.share-x').href = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`;
+                    }
+                });
+            });
+
+            // Click outside to close share menus
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.share-menu.active').forEach(menu => {
+                    menu.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
