@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Enhanced SEO -->
-    <title>MFM Addis-Ababa | Grace & Mercy Assembly - Mountain of Fire and Miracles</title>
+    <title>MFM Addis-Ababa | Goshen & Mercy Assembly - Mountain of Fire and Miracles</title>
     <meta name="description"
-        content="Join Mountain of Fire and Miracles Ministries Addis-Ababa, Grace & Mercy Assembly. Experience spiritual revival, deliverance, and powerful prayer services in Ethiopia. Services: Sunday 9AM, Manna Water Wednesday 6:30PM, Night of Solution monthly.">
+        content="Join Mountain of Fire and Miracles Ministries Addis-Ababa, Goshen & Mercy Assembly. Experience spiritual revival, deliverance, and powerful prayer services in Ethiopia. Services: Sunday 9AM, Manna Water Wednesday 6:30PM, Night of Solution monthly.">
     <meta name="keywords"
         content="MFM Ethiopia, Mountain of Fire Addis Ababa, Grace Mercy Assembly, Church in Addis Ababa, Deliverance Ministry Ethiopia, Prayer Meeting Addis, MFM Worldwide">
-    <meta name="author" content="MFM Grace & Mercy Assembly">
+    <meta name="author" content="MFM Goshen & Mercy Assembly">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="MFM Addis-Ababa | Grace & Mercy Assembly">
+    <meta property="og:title" content="MFM Addis-Ababa | Goshen & Mercy Assembly">
     <meta property="og:description"
         content="Centre of Spiritual Revival, Destiny Transformation and Glory Recovery in Addis-Ababa, Ethiopia">
     <meta property="og:image" content="assets/images/logo.jpeg">
@@ -24,9 +24,9 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="MFM Addis-Ababa | Grace & Mercy Assembly">
+    <meta name="twitter:title" content="MFM Addis-Ababa | Goshen & Mercy Assembly">
     <meta name="twitter:description"
-        content="Experience spiritual revival and transformation at MFM Grace & Mercy Assembly">
+        content="Experience spiritual revival and transformation at MFM Goshen & Mercy Assembly">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/icons/logo.ico">
@@ -1247,7 +1247,7 @@
                     <img src="assets/images/logo.jpeg" alt="MFM Addis-Ababa Logo" class="logo-img">
                     <div class="logo-text">
                         <h4>MFM Addis-Ababa</h4>
-                        <small>Grace & Mercy Assembly</small>
+                        <small>Goshen & Mercy Assembly</small>
                     </div>
                 </a>
 
@@ -1295,7 +1295,7 @@
                     </div>
                 </div>
                 <div class="hero-visual" data-aos="fade-left" data-aos-delay="200">
-                    <img src="assets/images/logo.jpeg" alt="MFM Grace & Mercy Assembly Logo" class="hero-logo">
+                    <img src="assets/images/logo.jpeg" alt="MFM Goshen & Mercy Assembly Logo" class="hero-logo">
                 </div>
             </div>
         </div>
@@ -1308,7 +1308,7 @@
                 <div class="about-visual" data-aos="fade-right">
                     <div class="about-card">
                         <img src="assets/images/logo.jpeg" alt="MFM Ministry Logo" class="about-icon">
-                        <h3>Grace & Mercy Assembly</h3>
+                        <h3>Goshen & Mercy Assembly</h3>
                     </div>
                 </div>
 
@@ -1747,7 +1747,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; <span id="currentYear"></span> MFM Grace & Mercy Assembly. All Rights Reserved.</p>
+                <p>&copy; <span id="currentYear"></span> MFM Goshen & Mercy Assembly. All Rights Reserved.</p>
             </div>
         </div>
     </footer>

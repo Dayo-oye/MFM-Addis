@@ -51,7 +51,7 @@
                     <img src="assets/images/logo.jpeg" alt="MFM Addis-Ababa Logo" class="logo-img">
                     <div class="logo-text">
                         <h4>MFM Addis-Ababa</h4>
-                        <small>Grace & Mercy Assembly</small>
+                        <small>Goshen & Mercy Assembly</small>
                     </div>
                 </a>
 
@@ -134,42 +134,68 @@
 
                 <div class="contact-form-section" data-aos="fade-left">
                     <div class="form-header">
+                        <div class="form-icon-wrapper">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </div>
                         <h3>Share your Feedback</h3>
                         <p>Have a question, testimony, or prayer request? Fill out the form below.</p>
                     </div>
 
-                    <form id="contactForm" class="premium-form">
-                        <div class="form-group">
-                            <label for="name" class="form-label">Full Name</label>
-                            <input type="text" id="name" class="form-control" placeholder="Enter your full name"
-                                required>
+                    <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" class="premium-form">
+                        <input type="hidden" name="access_key" value="12151668-681e-4dfb-9a1d-8553dc5c9267">
+                        <input type="hidden" name="subject" value="New Contact Form Submission from Website">
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name" class="form-label">
+                                    <i class="fas fa-user"></i>
+                                    <span>Full Name</span>
+                                </label>
+                                <input type="text" id="name" name="full_name" class="form-control" placeholder="Enter your full name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="number" class="form-label">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Mobile Number</span>
+                                </label>
+                                <input type="tel" id="number" name="phone" class="form-control" placeholder="Enter your mobile number" required>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" id="email" class="form-control" placeholder="Enter your email address"
-                                required>
+                            <label for="email" class="form-label">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email Address</span>
+                            </label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="subject" class="form-label">Message Type</label>
-                            <select id="subject" class="form-control" required>
+                            <label for="subject" class="form-label">
+                                <i class="fas fa-list-alt"></i>
+                                <span>Message Type</span>
+                            </label>
+                            <select id="subject" name="message_type" class="form-control" required>
                                 <option value="" disabled selected>Select message type</option>
-                                <option value="Inquiry">General Inquiry</option>
-                                <option value="Prayer Request">Prayer Request</option>
-                                <option value="Testimony">Share Testimony</option>
-                                <option value="Counseling">Counseling</option>
+                                <option value="Inquiry">💬 General Inquiry</option>
+                                <option value="Prayer Request">🙏 Prayer Request</option>
+                                <option value="Testimony">✨ Share Testimony</option>
+                                <option value="Counseling">🤝 Counseling</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="message" class="form-label">Your Message</label>
-                            <textarea id="message" class="form-control" placeholder="Write your message here..."
-                                required></textarea>
+                            <label for="message" class="form-label">
+                                <i class="fas fa-comment-dots"></i>
+                                <span>Your Message</span>
+                            </label>
+                            <textarea id="message" name="message" class="form-control" placeholder="Write your message here..." required></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-submit">
-                            Send Message <i class="fas fa-paper-plane"></i>
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
                         </button>
                     </form>
                 </div>
@@ -183,7 +209,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <h4><img src="assets/images/logo.jpeg" alt="MFM Logo"> MFM Addis</h4>
-                    <p>Grace & Mercy Assembly<br>Mountain of Fire and Miracles Ministries</p>
+                    <p>Goshen & Mercy Assembly<br>Mountain of Fire and Miracles Ministries</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
@@ -215,12 +241,44 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 MFM Addis-Ababa (Grace & Mercy Assembly). All Rights Reserved.</p>
+                <p>&copy; 2024 MFM Addis-Ababa (Goshen & Mercy Assembly). All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
+    <script>
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+                .then(async (response) => {
+                    let json = await response.json();
+                    if (response.status == 200) {
+                        // Success - show an alert or message on the page
+                        alert("Thank you! Your message has been sent.");
+                        form.reset(); // Clear the form
+                    } else {
+                        console.log(response);
+                        alert("Something went wrong. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert("Error: Could not send the message.");
+                });
+        });
+    </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
