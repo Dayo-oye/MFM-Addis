@@ -924,51 +924,115 @@ p {
 }
 
 /* ========== TESTIMONIES ========== */
+.testimonies-slider-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.testimonies-slider-wrapper .slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.testimonies-slider-wrapper .slider-btn.prev {
+  left: -20px;
+}
+
+.testimonies-slider-wrapper .slider-btn.next {
+  right: -20px;
+}
+
+.testimonies-grid {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 20px; /* Space for shadows */
+  scrollbar-width: none; /* Firefox */
+}
+
+.testimonies-grid::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.testimonies-grid .testimony-card {
+  flex: 0 0 calc((100% - 60px) / 3); /* 3 cards */
+  scroll-snap-align: start;
+  height: auto;
+}
+
+@media (max-width: 1024px) {
+  .testimonies-grid .testimony-card {
+    flex: 0 0 calc((100% - 30px) / 2); /* 2 cards */
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonies-grid .testimony-card {
+    flex: 0 0 calc(100% - 10px); /* 1 card on mobile */
+  }
+}
+
 .testimony-card {
   background: var(--bg-white);
-  padding: 32px;
+  padding: 40px;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   position: relative;
   transition: var(--transition);
+  display: flex;
+  flex-direction: column;
 }
 
 .testimony-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
 }
 
 .testimony-icon {
-  width: 55px;
-  height: 55px;
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  background: rgba(218, 165, 32, 0.1);
+  color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.35rem;
-  color: var(--bg-white);
-  margin-bottom: 20px;
+  font-size: 1rem;
 }
 
 .testimony-card h3 {
+  font-family: 'Inter', sans-serif;
   font-size: 1.25rem;
-  margin-bottom: 12px;
+  font-weight: 700;
+  margin-bottom: 16px;
   color: var(--text-main);
+  padding-right: 40px;
 }
 
 .testimony-card p {
-  font-size: 0.938rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
   line-height: 1.7;
   color: var(--text-body);
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+  flex-grow: 1;
 }
 
-.testimony-author {
+.testimony-card .testimony-author {
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   color: var(--primary);
-  font-size: 0.875rem;
-  font-style: italic;
+  font-size: 0.9rem;
+  font-style: normal;
+  margin-bottom: 0;
 }
 
 /* ========== CONTACT ========== */
@@ -1428,12 +1492,19 @@ textarea.form-control {
     grid-template-columns: 1fr;
   }
 
-  /* Make testimony cards same width as service cards on mobile */
-  .testimony-card {
-    flex: 0 0 85%;
-    width: 85%;
-    margin: 0 auto;
-    max-width: none;
+  /* Testimonies slider adjustments on mobile menu view */
+  .testimonies-slider-wrapper .slider-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+
+  .testimonies-slider-wrapper .slider-btn.prev {
+    left: -10px;
+  }
+
+  .testimonies-slider-wrapper .slider-btn.next {
+    right: -10px;
   }
 
   .about-visual {
@@ -1504,7 +1575,7 @@ textarea.form-control {
   }
 
   .testimony-card {
-    padding: 20px;
+    padding: 30px 20px; /* Increased internal padding for breathing room */
   }
 
   .testimony-icon {

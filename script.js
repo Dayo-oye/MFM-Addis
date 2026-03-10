@@ -145,13 +145,17 @@ if (yearSpan) {
 const sliderBtns = document.querySelectorAll('.slider-btn');
 
 if (sliderBtns.length > 0) {
-  const scrollAmount = 380; // approx card width + gap
-
   sliderBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const sliderId = btn.getAttribute('data-slider');
       const slider = document.getElementById(sliderId || 'servicesSlider');
       if (!slider) return;
+
+      // Dynamic calculation for the current slider
+      const firstCard = slider.firstElementChild;
+      const cardWidth = firstCard ? firstCard.offsetWidth : 380;
+      const gap = parseInt(window.getComputedStyle(slider).gap) || 0;
+      const scrollAmount = cardWidth + gap;
 
       const isNext = btn.classList.contains('next');
 
