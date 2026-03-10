@@ -111,29 +111,35 @@ if (contactForm) {
     e.preventDefault();
 
     const formData = {
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      type: document.getElementById('subject') ? document.getElementById('subject').value : 'Inquiry',
-      message: document.getElementById('message').value
+      name: document.getElementById('name') ? document.getElementById('name').value : '',
+      type: document.getElementById('subject') ? document.getElementById('subject').value : 'Inquiry'
     };
 
-    let responseMessage = '';
+    let successMsg = '';
+    let successTitle = 'Message Sent!';
 
     switch (formData.type) {
       case 'Testimony':
-        responseMessage = `Praise God! Thank you ${formData.name} for sharing your testimony. We rejoice with you!`;
+        successMsg = `Praise God, ${formData.name || 'friend'}! Your testimony has been received.`;
+        successTitle = 'Testimony Received! 🙌';
         break;
       case 'Prayer Request':
-        responseMessage = `Dear ${formData.name}, your prayer request has been received. Our ministers will intercede for you.`;
+        successMsg = `${formData.name || 'Dear friend'}, our ministers will intercede for you.`;
+        successTitle = 'Prayer Request Sent! 🙏';
         break;
       default:
-        responseMessage = `Thank you ${formData.name} for contacting us. We will get back to you shortly.`;
+        successMsg = 'Your message has been sent to the ministry.';
+        successTitle = 'Message Sent!';
     }
 
-    alert(responseMessage);
+    // Use the toast system if available, fall back to nothing (inline scripts handle live forms)
+    if (typeof showToast === 'function') {
+      showToast(successMsg, { title: successTitle, type: 'success' });
+    }
     contactForm.reset();
   });
 }
+
 
 // Current Year in Footer
 const yearSpan = document.getElementById('currentYear');

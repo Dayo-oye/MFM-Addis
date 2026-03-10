@@ -529,6 +529,7 @@
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="toast.js"></script>
     <script src="script.js"></script>
     <script>
         // Single Selection Script for Bulletin
@@ -632,17 +633,21 @@
                     this.classList.toggle('liked');
                     const icon = this.querySelector('i');
                     const text = this.querySelector('span');
+                    const post = this.closest('.bulletin-post');
+                    const title = post ? post.querySelector('h2').textContent.trim() : 'Message';
                     
                     if (this.classList.contains('liked')) {
                         icon.classList.remove('far');
                         icon.classList.add('fas');
                         this.style.color = 'var(--primary)';
                         text.textContent = 'Liked';
+                        showToast(`"${title}" added to your favourites.`, { title: 'Liked! ❤️', type: 'success' });
                     } else {
                         icon.classList.remove('fas');
                         icon.classList.add('far');
                         this.style.color = '';
                         text.textContent = 'Like';
+                        showToast(`Like removed from "${title}".`, { title: 'Unliked', type: 'info' });
                     }
                 });
             });
@@ -676,6 +681,17 @@
                         menu.querySelector('.share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
                         menu.querySelector('.share-x').href = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`;
                     }
+                });
+            });
+
+            // Fire toast when sharing links are clicked
+            document.querySelectorAll('.share-icon').forEach(link => {
+                link.addEventListener('click', function() {
+                    const post = this.closest('.bulletin-post');
+                    const title = post ? post.querySelector('h2').textContent.trim() : 'Message';
+                    const platform = this.classList.contains('share-wa') ? 'WhatsApp'
+                        : this.classList.contains('share-fb') ? 'Facebook' : 'X (Twitter)';
+                    showToast(`Sharing "${title}" via ${platform}.`, { title: 'Sharing!', type: 'success' });
                 });
             });
 

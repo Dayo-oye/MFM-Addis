@@ -856,22 +856,22 @@
         .then(async (response) => {
           let json = await response.json();
           if (response.status == 200) {
-            // Success - show an alert or message on the page
-            alert("Thank you! Your message has been sent.");
-            form.reset(); // Clear the form
+            showToast('Your message has been sent to the ministry.', { title: 'Message Sent!', type: 'success' });
+            form.reset();
           } else {
             console.log(response);
-            alert("Something went wrong. Please try again.");
+            showToast('Something went wrong. Please try again.', { title: 'Send Failed', type: 'error' });
           }
         })
         .catch(error => {
           console.log(error);
-          alert("Error: Could not send the message.");
+          showToast('Something went wrong. Please try again.', { title: 'Send Failed', type: 'error' });
         });
     });
   </script>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="toast.js"></script>
   <script src="script.js"></script>
 </body>
 
